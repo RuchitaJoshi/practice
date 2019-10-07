@@ -24,6 +24,15 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * To limit the failed login attempts
+     * overwrite the values of below two variables
+     *
+     * @var int
+     */
+    protected $maxAttempts = 3; // Default is 5
+    protected $decayMinutes = 2; // Default is 1
+
+    /**
      * Where to redirect users after login.
      *
      * @var string
@@ -44,16 +53,18 @@ class LoginController extends Controller
         $this->validateLogin($request);
         if($this->attemptLogin($request)){
             $user = $this->guard()->user();
+//            $user->generateToken();
             $user->setRememberToken(str_random(16));
             Session::put('user',$user);
 
-            return view('/home');
-//            return response()->json([
-//                'data' => $user->toArray(),
-//            ]);
+//            return view('/home');
+            return response()->json([
+                'data' => $user->toArray(),
+            ]);
         }
 
         return $this->sendFailedLoginResponse($request);
+
     }
 
     public function logout(Request $request)
@@ -66,8 +77,8 @@ class LoginController extends Controller
             Session::forget('user');
         }
 
-        return view('auth/login');
+//        return view('auth/login');
 //        return $user;
-        //return response()->json(['data'=>'User Logged Out'],200);
+        return response()->json(['data'=>'User Logged Out'],200);
     }
 }

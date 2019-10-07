@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         
 //        View::share('channels', \App\Channel::all());
 
-        View::composer('threads.create', function ($view){
+        View::composer('*', function ($view){
             $view->with('channels', \App\Channel::all());
         });
     }

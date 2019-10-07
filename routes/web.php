@@ -239,6 +239,8 @@ Route::post('/posts', 'PostsController@store');
 Route::put('/posts/{post_id}', 'PostsController@update');
 
 Route::delete('/posts/{post_id}', 'PostsController@destroy');
+
+Route::post('/ajax','PostsController@ajaxRequestPost');
 /*
  *
  * ADMIN PANEL RELATED ROUTES
@@ -278,3 +280,7 @@ Route::post('project', 'ProjectsController@store');
 Route::put('project/{project_id}', 'ProjectsController@update');
 // delete Project
 Route::delete('project/{project_id}', 'ProjectsController@destroy');
+
+
+
+
