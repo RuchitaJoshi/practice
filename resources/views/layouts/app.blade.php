@@ -14,7 +14,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-confirm-delete.css') }}" rel="stylesheet">
-    <link href="{{asset('css/ajax-pagination.css')}}" rel="stylesheet">
 </head>
 {{--<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">--}}
 {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" type="text/css">--}}
@@ -95,12 +94,6 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     {{--script for search box in posts/index file--}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    {{--pagination--}}
-    <script src="{{asset('js/ajax-pagination/ajax-pagination-2.1.4-jquery.min.js')}}"></script>
-    <script src="{{asset('js/ajax-pagination/ajax-pagination-bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/ajax-pagination/ajax-pagination.js')}}"></script>
-
 
     <script src="{{asset('js/app.js') }}"></script>
     <script src="{{asset('js/custom.js') }}"></script>

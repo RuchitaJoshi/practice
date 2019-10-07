@@ -48,40 +48,10 @@
         </div>
     </div>
 
-<div class="row">
-    <ul>
-        <table class="table data-table" id="table1">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Content</th>
-                {{--<th>Action</th>--}}
-            </tr>
-            </thead>
-
-            <tbody id="posts_list" name="posts-list">
-            @foreach($posts as $post)
-                  <tr data-title="{{$post->title}}" data-body="{{$post->body}}" id="{{$post->id}}">
-                    <td>{{$post->title}}</td>
-                    <td>{{$post->body}}</td>
-                    {{--<td><a href="{{asset('/posts')}}" class="delete-user-row-with-ajax-button"><span class="glyphicon glyphicon-remove"></span></a></td>--}}
-                      <td>
-                          <button class='btn btn-info btn-xs btn-edit'>Edit</button>
-                          <button class='btn btn-danger btn-xs btn-delete'>Delete</button>
-                      </td>
-                  </tr>
-            @endforeach
-            </tbody>
-
-            {{--<li>--}}
-                {{--<a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a>--}}
-            {{--</li>--}}
-        </table>
-        <div class="text-center">
-            {!! $posts->render() !!}
+        <div id="table-data">
+            @include("posts.ajax");
         </div>
-    </ul>
-</div>
+
         <div class="form-group">
             {!! Form::open(['method' => 'POST','id' => 'myForm', 'action'=>null, 'file' => true]) !!}
                 <input type="text" id="myInput" name="myInput" class="form-control" />
