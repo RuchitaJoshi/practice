@@ -18,10 +18,29 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest('created_at')->paginate(5);
+
+//        To prevent pagination over range. For over range, It will redirect you to the same display page.
+        abort_unless($posts->count(), 204);
+
         return view('posts.index', compact('posts'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->get('title');
+
+        $result = Post::where('title', 'LIKE', '%'. $search. '%')->get();
+
+        return response()->json($result);
+
+    }
+
+    public function ajaxRequestPost(){
+//        $input = request()->all();
+//        return response()->json(['success'=>true,['data'=>'simple ajax submission']]);
+        dd("hi");
+    }
 
     public function giveme(Request $request)
     {

@@ -140,14 +140,19 @@ $( document ).ready(function() {
 
                 window.console.log(data);
                 // window.console.log("Post Created Successfully");
-                var post = '<tr id=' + data.id + '<td>' + data.title + '</td><td>' + data.body + '</td>';
-                post += '<td><a href="'+ my_url +'" class="delete-user-row-with-ajax-button"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
+                var post = '<tr data-body=' + data.body + ' data-title=' + data.title + ' id=' + data.id + '><td>' + data.title + '</td><td>' + data.body + '</td>';
+                //post += '<td><a href="'+ my_url +'" class="delete-user-row-with-ajax-button"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
+
+
+                post += '<td><button class="btn btn-info btn-xs btn-edit">Edit</button> <button class="btn btn-danger btn-xs btn-delete">Delete</button></td>';
+
                 $('#posts_list').append(post);
 
                 // var markup = "<tr><td>title</td><td>description</td></tr>";
                 // $("#table1").append(markup);
                 window.console.log('Data created successfully');
-                //window.location.reload();
+                $(".modal").modal('hide');
+                // window.location.reload();
             },
             error: function () {
                 window.console.log("Error ");
@@ -258,6 +263,7 @@ $( document ).ready(function() {
                             //     window.console.log(index);
                             //     window.console.log(value.title);
                             // });
+                            window.location.reload();
                         },
                         error: function () {
                             window.console.log('Could not delete data');

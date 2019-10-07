@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-confirm-delete.css') }}" rel="stylesheet">
+    <link href="{{asset('css/ajax-pagination.css')}}" rel="stylesheet">
 </head>
 {{--<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">--}}
 {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" type="text/css">--}}
@@ -35,8 +36,18 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
-                    <a href="{{asset('/threads')}}">All Threads</a>
-                    <a href="{{asset('/threads/create')}}">New Thread</a>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/threads">All Threads</a></li>
+                                @if(auth()->check())
+                                    <li><a href="/threads?by={{auth()->user()->name}}">My Thread</a></li>
+                                    @endif
+                            </ul>
+                        </li>
+                        <li><a href="{{asset('/threads/create')}}">New Thread</a></li>
+                    </ul>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -81,10 +92,20 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    {{--script for search box in posts/index file--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    {{--pagination--}}
+    <script src="{{asset('js/ajax-pagination/ajax-pagination-2.1.4-jquery.min.js')}}"></script>
+    <script src="{{asset('js/ajax-pagination/ajax-pagination-bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/ajax-pagination/ajax-pagination.js')}}"></script>
+
+
+    <script src="{{asset('js/app.js') }}"></script>
+    <script src="{{asset('js/custom.js') }}"></script>
     <script src="{{asset('js/test.js')}}"></script>
     <script src="{{asset('js/bootstrap-confirm-delete.js')}}"></script>
-
 
     {{--<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>--}}
     {{--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
