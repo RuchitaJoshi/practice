@@ -241,6 +241,8 @@ Route::put('/posts/{post_id}', 'PostsController@update');
 Route::delete('/posts/{post_id}', 'PostsController@destroy');
 
 Route::post('/ajax','PostsController@ajaxRequestPost');
+
+Route::get('/generate-pdf','PostsController@generatePDF');
 /*
  *
  * ADMIN PANEL RELATED ROUTES

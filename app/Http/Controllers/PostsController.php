@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Post;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,14 +17,35 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest('created_at')->paginate(5);
+        if($request->ajax()) {
+            $posts = Post::latest('created_at')->paginate(5);
 
-//        To prevent pagination over range. For over range, It will redirect you to the same display page.
-        abort_unless($posts->count(), 204);
+//       To prevent pagination over range. For over range, It will redirect you to the same display page.
+            abort_unless($posts->count(), 204);
 
-        return view('posts.index', compact('posts'));
+            return view('posts.ajax', compact('posts'))->render();
+        }
+
+        else{
+            $posts = Post::latest('created_at')->paginate(5);
+
+//       To prevent pagination over range. For over range, It will redirect you to the same display page.
+            abort_unless($posts->count(), 204);
+
+            return view('posts.index', compact('posts'));
+        }
+    }
+
+    //Generate PDF of posts table data when click on Export PDF button
+    public function generatePDF(){
+        $posts['title']='Posts List';
+        $posts['posts']=Post::get();
+
+        $pdf = PDF::loadView('posts.posts_pdf', $posts);
+
+        return $pdf->download('posts_pdf.pdf');
     }
 
     public function search(Request $request)
