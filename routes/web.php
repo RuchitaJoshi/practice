@@ -284,5 +284,10 @@ Route::put('project/{project_id}', 'ProjectsController@update');
 Route::delete('project/{project_id}', 'ProjectsController@destroy');
 
 
+Route::get('/lazyloadImage', function (){
+    return view('lazyloadImage.lazyloadImage');
+});
+
+
 
 
