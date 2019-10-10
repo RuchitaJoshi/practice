@@ -289,5 +289,9 @@ Route::get('/lazyloadImage', function (){
 });
 
 
+Route::get('/create-image','ImageController@create');
+
+Route::post('/create-image','ImageController@store');
+
 
 
