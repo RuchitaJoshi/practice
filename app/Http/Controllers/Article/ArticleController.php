@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Support\Facades\Validator;
+use Watson\Rememberable\Rememberable;
+
 
 class ArticleController extends Controller
 {
+    use Rememberable;
 
     /**
      * Get all articles
@@ -18,6 +21,10 @@ class ArticleController extends Controller
      */
     public function getArticles()
     {
+//        $articles = Cache::remember('articles', 22*60, function() {
+//            return Article::all();
+//        });
+
         return response()->json(['success' => TRUE, 'data' => ['articles' => Article::all()]], IlluminateResponse::HTTP_OK);
     }
 

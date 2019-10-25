@@ -18,7 +18,9 @@ use App\Staff;
 use App\Tag;
 use App\User;
 use App\Video;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 
 Route::get('/', function () {
    // return view('welcome');
@@ -289,9 +291,47 @@ Route::get('/lazyloadImage', function (){
 });
 
 
+//Image Intervention Laravel Package
+//Upload Image and display original and thumbnail image
 Route::get('/create-image','ImageController@create');
 
 Route::post('/create-image','ImageController@store');
 
 
+//Redis Examples
+Route::get('/videos/{id}',function(){
+    $downloads = Redis::get('videos.{id}.downloads');
+    return view('caching.count', compact('downloads'));
+});
 
+Route::get('/videos/{id}/download', function($id){
+    Redis::incr('videos.{id}.downloads');
+    return back();
+});
+
+/*remember is a common method to be called to check for redis key exists or not
+below two routes can be replaced by the Cache::remember method provided out of box in laravel
+make sure you have CACHE_DRIVER=redis in .env file.*/
+function remember($key, $minutes, $callback){
+    if($value = Redis::get($key)){
+        return json_decode($value);
+    }
+
+    Redis::setex($key, $minutes, $value = $callback());
+
+    return $value;
+}
+
+Route::get('/cached-articles', function(){
+    return remember('articles.all', 60, function(){
+       return \App\Article::all();
+    });
+});
+
+
+//Route::get('/cached-articles', function(){
+//    return Cache::remember('articles.all', 60, function(){
+////        dd('here');
+////        return \App\Article::all();
+//    });
+//});
